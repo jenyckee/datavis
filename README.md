@@ -1,3 +1,3 @@
 DataVis
 =======
-Deployed on http://thawing-savannah-5983.herokuapp.com/#
+Deployed on http://blooming-taiga-1950.herokuapp.com/
