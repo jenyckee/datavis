@@ -1,47 +1,56 @@
-var width = 960,
-    height = 500;
+function animateGrowingCircle(fromRadius, toRadius) {
+    var animateFunction = function () {
+        d3.select(this)
+            .attr('r', fromRadius)
+            .transition()
+            .duration(1000)
+            .attr('r', toRadius)
+            .transition()
+            .duration(1000)
+            .attr('r', fromRadius)
+            .each('end', animateFunction);
+    };
+    return animateFunction;
+}
 
-var color = d3.scale.category20();
+function randomIntFromInterval(min,max)
+{
+    return Math.floor(Math.random()*(max-min+1)+min);
+}
 
-var force = d3.layout.force()
-    .charge(-120)
-    .linkDistance(30)
-    .size([width, height]);
+window.addEventListener('load', function () {
+    var xPadding = 25;
+    var yPadding = 25;
+    var svg = d3.select("body").append("svg");
 
-var svg = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height);
+    var screenWidth = 250;
+    var screenHeight = 250;
 
-d3.json("miserables.json", function(error, graph) {
-  force
-      .nodes(graph.nodes)
-      .links(graph.links)
-      .start();
+    svg.attr("width", screenWidth)
+       .attr("height", screenHeight);
 
-  var link = svg.selectAll(".link")
-      .data(graph.links)
-    .enter().append("line")
-      .attr("class", "link")
-      .style("stroke-width", function(d) { return Math.sqrt(d.value); });
+        // console.log(screenWidth);
 
-  var node = svg.selectAll(".node")
-      .data(graph.nodes)
-    .enter().append("circle")
-      .attr("class", "node")
-      .attr("r", 5)
-      .style("fill", function(d) { return color(d.group); })
-      .call(force.drag);
+    var circle = svg.append("circle")
+                 .attr("cx", 100)
+                 .attr("cy", 100)
+                 .attr("r", 25)
+                 .style("fill", '#9B59B6');
 
-  node.append("title")
-      .text(function(d) { return d.name; });
-
-  force.on("tick", function() {
-    link.attr("x1", function(d) { return d.source.x; })
-        .attr("y1", function(d) { return d.source.y; })
-        .attr("x2", function(d) { return d.target.x; })
-        .attr("y2", function(d) { return d.target.y; });
-
-    node.attr("cx", function(d) { return d.x; })
-        .attr("cy", function(d) { return d.y; });
-  });
+    circle.on('mouseenter', function () {
+        circle.style('fill', '#AB69C6');
+    })
+    .on('mouseleave', function () {
+        circle.style('fill', '#9B59B6')
+    })
+    .on('click', function () {
+        var x = Math.random() * screenWidth;
+        var y = Math.random() * screenHeight;
+        circle
+            .transition()
+            .duration(1000)
+            .ease('bounce')
+            .attr('cx', randomIntFromInterval(25, screenWidth-25))
+            .attr('cy', randomIntFromInterval(25, screenWidth-25));
+    });
 });

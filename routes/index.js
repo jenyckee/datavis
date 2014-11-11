@@ -7,6 +7,17 @@ mongoose.connect('mongodb://localhost/test');
 
 var db = mongoose.connection;
 
+var parties = ["CD&V","Groen","N-VA","OpenVld","SP.A","Vlaams Belang"]
+
+var statementSchema = mongoose.Schema(
+{
+	id: Number,
+	text: String,
+	parties: [String]
+});
+
+var Statement = mongoose.model('statement', statementSchema, 'statement')
+
 var recordSchema = mongoose.Schema(
 {
 	id: Number,
@@ -46,7 +57,6 @@ var recordSchema = mongoose.Schema(
 	stmt33: Number,
 	stmt34: Number,
 	stmt35: Number,
-	stmt36: Number,
 	cat1: Number,
 	cat2: Number,
 	cat3: Number,
@@ -93,21 +103,22 @@ var recordSchema = mongoose.Schema(
 	stelling32: Boolean,
 	stelling33: Boolean,
 	stelling34: Boolean,
-	stelling35: Boolean,
+	stelling35: Boolean
 });
 
 var Record = mongoose.model('record', recordSchema, 'record');
 
+
 /* GET home page. */
 router.get('/', function(req, res) {
 
-	Record.findOne({id:1}, function (err, record) {
-	  if (err) throw err;
-	  // console.log(record)
-	});
+	Statement.find({}, function (err, result) {
+		if (err) throw err;
 
-	res.render('index', {
-		title: 'Express'
+	  	res.render('index', {
+			stmts: result,
+			title: 'Stemtest Visualization'
+		});
 	});
 });
 

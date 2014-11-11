@@ -1,0 +1,52 @@
+[
+{
+	"id" : 1,
+	"text": "Er moet een rijbewijs met punten komen",
+	"parties": ["CD&V","Groen","N-VA","OpenVld","SP.A"]
+},
+{
+	"id" : 2,
+	"text": "Een moeder moet anoniem haar kind kunnen afstaan voor adoptie",
+	"parties": ["OpenVld","SP.A","Vlaams Belang"]
+},
+{
+	"id" : 3,
+	"text": "De maximumsnelheid op de Brusselse ring moet verlaagd worden tot 100 km per uur",
+	"parties": ["Groen","SP.A"]
+},
+{
+	"id" : 4,
+	"text": "De treinstations die door weinig reizigers gebruikt worden, moeten ook open blijven",
+	"parties": ["CD&V","Groen","N-VA","Vlaams Belang","SP.A"]
+},
+{
+	"id" : 5,
+	"text": "Er mag geen alcohol in drankautomaten zitten",
+	"parties": ["CD&V","Groen","Vlaams Belang","SP.A"]
+},
+{
+	"id" : 6,
+	"text": "Leefloners moeten verplicht kunnen worden gemeenschapswerk te verrichten",
+	"parties": ["CD&V","Vlaams Belang","OpenVld","N-VA"]
+},
+{
+	"id" : 7,
+	"text": "De minimumleeftijd voor GAS-boetes moet hoger liggen dan de huidige leeftijd van 14 jaar",
+	"parties": ["Groen"]
+},
+{
+	"id" : 8,
+	"text": "Europa moet meer sociale bevoegdheden krijgen",
+	"parties": ["CD&V","Groen","OpenVld","SP.A"]
+},
+{
+	"id" : 9,
+	"text": "Mensen die hun geld investeren in plaats van te sparen moeten fiscaal beloond worden",
+	"parties": ["Groen","N-VA","OpenVld","Vlaams Belang"]
+},
+{
+	"id" : 10,
+	"text": "België moet migranten van buiten de EU toelaten om tekorten op de arbeidsmarkt op te vangen",
+	"parties": ["CD&V","Groen","N-VA","OpenVld","SP.A"]
+}
+]
