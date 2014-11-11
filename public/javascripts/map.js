@@ -1,56 +1,19 @@
-function animateGrowingCircle(fromRadius, toRadius) {
-    var animateFunction = function () {
-        d3.select(this)
-            .attr('r', fromRadius)
-            .transition()
-            .duration(1000)
-            .attr('r', toRadius)
-            .transition()
-            .duration(1000)
-            .attr('r', fromRadius)
-            .each('end', animateFunction);
-    };
-    return animateFunction;
-}
+var Cdv = {id: "cdv", name: "CD&V" }
+var Groen = { id: "grn", name: "Groen" }
+var Nva = { id: "nva", name: "N-VA" }
+var OpenVld = { id: "vld", name: "OpenVld" }
+var Spa = { id: "spa", name: "SP.A" }
+var VlaamsBelang = { id: "vlb", name: "Vlaams Belang"}
 
-function randomIntFromInterval(min,max)
-{
-    return Math.floor(Math.random()*(max-min+1)+min);
-}
+var parties = [Cdv, Groen, Nva, OpenVld, Spa, VlaamsBelang]
 
-window.addEventListener('load', function () {
-    var xPadding = 25;
-    var yPadding = 25;
-    var svg = d3.select("body").append("svg");
-
-    var screenWidth = 250;
-    var screenHeight = 250;
-
-    svg.attr("width", screenWidth)
-       .attr("height", screenHeight);
-
-        // console.log(screenWidth);
-
-    var circle = svg.append("circle")
-                 .attr("cx", 100)
-                 .attr("cy", 100)
-                 .attr("r", 25)
-                 .style("fill", '#9B59B6');
-
-    circle.on('mouseenter', function () {
-        circle.style('fill', '#AB69C6');
-    })
-    .on('mouseleave', function () {
-        circle.style('fill', '#9B59B6')
-    })
-    .on('click', function () {
-        var x = Math.random() * screenWidth;
-        var y = Math.random() * screenHeight;
-        circle
-            .transition()
-            .duration(1000)
-            .ease('bounce')
-            .attr('cx', randomIntFromInterval(25, screenWidth-25))
-            .attr('cy', randomIntFromInterval(25, screenWidth-25));
-    });
-});
+var body = d3.select("#parties")
+             .selectAll("div")
+             .data(parties)
+             .enter()
+             .append("a").attr("href", "#")
+             .append("div")
+             .attr("class", function(party) { return "party "+party.id; })
+             // .attr("style", "left: 0px; right: 0px; position: absolute; top: 38px; display: block;")
+             .append("div").attr("class", "logo");
+            

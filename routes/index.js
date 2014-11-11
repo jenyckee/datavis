@@ -7,8 +7,6 @@ mongoose.connect('mongodb://localhost/test');
 
 var db = mongoose.connection;
 
-var parties = ["CD&V","Groen","N-VA","OpenVld","SP.A","Vlaams Belang"]
-
 var statementSchema = mongoose.Schema(
 {
 	id: Number,

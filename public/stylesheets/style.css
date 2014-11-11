@@ -6,3 +6,56 @@ body {
 a {
   color: #00B7FF;
 }
+
+#parties .party .logo {
+    background-image: url("/images/parties@2x.png");
+    background-size: 1288px 26px;
+    /*position: absolute;*/
+    top: 0;
+}
+
+
+#parties .cdv .logo {
+    background-repeat: no-repeat;
+    background-position: -105px 0px;
+    width: 59px;
+    height: 26px;
+}
+
+
+#parties .grn .logo {
+    background-repeat: no-repeat;
+    background-position: -454px 0px;
+    width: 66px;
+    height: 26px;
+}
+
+#parties .nva .logo {
+    background-repeat: no-repeat;
+    background-position: -738px 0px;
+    width: 78px;
+    height: 26px;
+}
+
+
+#parties .vld .logo {
+    background-repeat: no-repeat;
+    background-position: -1229px 0px;
+    width: 59px;
+    height: 26px;
+}
+
+#parties .spa .logo {
+    background-repeat: no-repeat;
+    background-position: -934px 0px;
+    width: 66px;
+    height: 26px;
+}
+
+#parties .vlb .logo {
+    background-repeat: no-repeat;
+    background-position: -1085px 0px;
+    width: 85px;
+    height: 26px;
+}
+

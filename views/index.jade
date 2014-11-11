@@ -3,7 +3,7 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
-  
+  div#parties
   script.
    var stmts = !{JSON.stringify(stmts)}
   script(src='javascripts/map.js')
