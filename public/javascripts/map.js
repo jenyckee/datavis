@@ -78,6 +78,8 @@ function histoGram(fD) {
         // // call update functions of pie-chart and legend.    
         // pC.update(nD);
         // leg.update(nD);
+
+        d3.select("#statement-info").text(d[0])
     }
     
     function mouseout(d){    
