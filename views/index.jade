@@ -5,25 +5,22 @@ block content
       h1= title
    div.container
       div.content
-        div.row#sunburst
+        div.col-md-6#sunburst
           #main.col-md-10
             #sequence
-            |       
             #chart
               #explanation(style='visibility: hidden;')
                 span#percentage
                 br
-                |           of all Belgian votes
-          |     
+                | of all Belgian votes
           #sidebar.col-md-2
             input#togglelegend(type='checkbox')
-            |  Legend
+            | Legend
             br
-            |       
             #legend(style='visibility: hidden;')
-        div.row#stemtest
-          div.col-md-6#statements
-          div.col-md-6#legend
+        div.col-md-6#stemtest
+          div.row#statements
+          div.row#legend
              div.panel.panel-default
                 div.panel-body#statement-info
    script.
