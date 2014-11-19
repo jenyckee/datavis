@@ -25,8 +25,9 @@ function histoGram(fD) {
     // fD.forEach(function(d){d.total=d.freq.low+d.freq.mid+d.freq.high;});
     var fD = fD.map(function(d){return [d.text,d.agreements];});
 
-    console.log(fD)
 
+    console.log(fD)
+        
     var hG={},    hGDim = {t: 60, r: 0, b: 30, l: 0};
     hGDim.w = 500 - hGDim.l - hGDim.r, 
     hGDim.h = 300 - hGDim.t - hGDim.b;

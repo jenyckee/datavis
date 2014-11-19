@@ -1,0 +1,35 @@
+doctype html
+html
+	head
+		meta(charset='utf-8')
+		|     
+		title Sequences sunburst
+		|     
+		script(src='http://d3js.org/d3.v3.min.js')
+		|     
+		link(rel='stylesheet', type='text/css', href='https://fonts.googleapis.com/css?family=Open+Sans:400,600')
+		|     
+		link(rel='stylesheet', type='text/css', href='sequences.css')
+	|   
+	body
+		#main
+			#sequence
+			|       
+			#chart
+				#explanation(style='visibility: hidden;')
+					span#percentage
+					br
+					|           of all Belgian votes
+		|     
+		#sidebar
+			input#togglelegend(type='checkbox')
+			|  Legend
+			br
+			|       
+			#legend(style='visibility: hidden;')
+		|     
+		script(type='text/javascript', src='sequences.js')
+		|     
+		script(type='text/javascript').
+			// Hack to make this example display correctly in an iframe on bl.ocks.org
+			d3.select(self.frameElement).style("height", "700px");
