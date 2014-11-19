@@ -1,10 +1,15 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  div#parties
-  script.
-   var stmts = !{JSON.stringify(stmts)}
-  script(src='javascripts/map.js')
+	header
+		h1= title
+	div.container
+		div.content
+			div.row
+				div.col-md-12#statements
+			div.row
+				div.col-md-12#parties
+	script.
+		var stmts = !{JSON.stringify(stmts)}
+	script(src='javascripts/map.js')
 

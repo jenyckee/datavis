@@ -1,5 +1,6 @@
 var express = require('express');
 var mongoose = require('mongoose');
+var async = require('async');
 
 var router = express.Router();
 
@@ -106,17 +107,31 @@ var recordSchema = mongoose.Schema(
 
 var Record = mongoose.model('record', recordSchema, 'record');
 
-
 /* GET home page. */
-router.get('/', function(req, res) {
+router.get('/', function (req, res) {
 
-	Statement.find({}, function (err, result) {
-		if (err) throw err;
+	Statement.find({}, function (err, statements) {
 
-	  	res.render('index', {
-			stmts: result,
-			title: 'Stemtest Visualization'
-		});
+		async.map(statements, 
+			function (statement, done) {
+				var condition = JSON.parse("{ \"stmt"+statement.id+"\" : 1 }");
+				Record.count(condition, function (err, count) {
+					if (err) {
+						console.log("Error counting statement agreements")
+						done(err);
+					}
+					else {
+						done(null, { id : statement.id, text: statement.text, parties: statement.parties , agreements: count});
+					}
+				});
+			}, 
+			function (err, statementsWithCounts) {
+			  	res.render('index', {
+					stmts: statementsWithCounts,
+					title: 'Stemtest Visualization'
+				});
+			}
+		);
 	});
 });
 
