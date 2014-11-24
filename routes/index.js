@@ -4,7 +4,7 @@ var async = require('async');
 
 var router = express.Router();
 
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect('mongodb://jenyckee:abc123@ds055990.mongolab.com:55990/infoviz');
 
 var db = mongoose.connection;
 

@@ -18,3 +18,5 @@ clean <- function(df) {
 	stellings<-apply(df[51:85], 2, as.logical)
 	cbind(df[1:2],stmts, cats, stellings)
 }
+
+# mongoimport -h ds055990.mongolab.com:55990 -d infoviz -c statement -u jenyckee -p abc123 --file ./Dropbox/vub/infoVis/DataVis/DataVis/stellingen.json --jsonArray
