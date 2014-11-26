@@ -112,7 +112,7 @@ router.get('/', function (req, res) {
 
 	Statement.find({}, function (err, statements) {
 
-		async.map(statements, 
+		async.map(statements,							// async.map(data, mapfunction, callback(e,r))
 			function (statement, done) {
 				var condition = JSON.parse("{ \"stmt"+statement.id+"\" : 1 }");
 				Record.count(condition, function (err, count) {
@@ -124,7 +124,7 @@ router.get('/', function (req, res) {
 						done(null, { id : statement.id, text: statement.text, parties: statement.parties , agreements: count});
 					}
 				});
-			}, 
+			},
 			function (err, statementsWithCounts) {
 			  	res.render('index', {
 					stmts: statementsWithCounts,

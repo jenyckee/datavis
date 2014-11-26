@@ -29,9 +29,9 @@ function histoGram(fD) {
     console.log(fD)
 
     var hG={},    hGDim = {t: 60, r: 0, b: 30, l: 0};
-    hGDim.w = 500 - hGDim.l - hGDim.r, 
+    hGDim.w = 500 - hGDim.l - hGDim.r,
     hGDim.h = 300 - hGDim.t - hGDim.b;
-        
+
     //create svg for histogram.
     var hGsvg = d3.select("#statements").append("svg")
         .attr("width", hGDim.w + hGDim.l + hGDim.r)
@@ -54,7 +54,7 @@ function histoGram(fD) {
     // Create bars for histogram to contain rectangles and freq labels.
     var bars = hGsvg.selectAll(".bar").data(fD).enter()
             .append("g").attr("class", "bar");
-    
+
     //create the rectangles.
     bars.append("rect")
         .attr("x", function(d) { return x(d[0]); })
@@ -64,7 +64,7 @@ function histoGram(fD) {
         .attr('fill',barColor)
         .on("mouseover",mouseover)// mouseover is defined below.
         .on("mouseout",mouseout);// mouseout is defined below.
-        
+
     //Create the frequency labels above the rectangles.
     bars.append("text").text(function(d){ return d3.format(",")(d[1])})
         .attr("x", function(d) { return x(d[0])+x.rangeBand()/2; })
@@ -75,23 +75,22 @@ function histoGram(fD) {
         // filter for selected state.
         // var st = stmts.filter(function(s){ return s.Text == d[0];})[0],
         //     nD = d3.keys(st.agreements).map(function(s){ return {type:s, freq:st.freq[s]};});
-           
-        // // call update functions of pie-chart and legend.    
+
+        // // call update functions of pie-chart and legend.
         // pC.update(nD);
         // leg.update(nD);
 
         d3.select("#statement-info").text(d[0])
     }
-    
-    function mouseout(d){    
+
+    function mouseout(d){
     // utility function to be called on mouseout.
-        // // reset the pie-chart and legend.    
+        // // reset the pie-chart and legend.
         // pC.update(tF);
         // leg.update(tF);
     }
-    
+
     return hG;
 }
 
 histoGram(stmts);
-    
