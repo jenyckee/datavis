@@ -28,7 +28,7 @@ var colors = {
 
 
 };
-
+var larss;
 // Total size of all segments; we set this later, after loading the data.
 var totalSize = 0;
 
@@ -54,8 +54,35 @@ var arc = d3.svg.arc()
 d3.text("out.csv", function(text) {
   var csv = d3.csv.parseRows(text);
   var json = buildHierarchy(csv);
+  larss = json
+  console.log(json);
   createVisualization(json);
 });
+
+/*
+// Function to create a dual linked tree from nested array
+// json = json file containing nested arrays
+// parents = [] when calling
+// Use: generating colors for provinces
+function addParents(json, parents){
+  var newparents;
+  if(json.name == 'root'){
+    newparents = new Array;
+  }
+  else{
+    newparents = parents.slice(); // duplicating parents array by value
+  }
+
+  json.parents = parents;
+
+  if(json.hasOwnProperty('children')){
+    for(var i = 0; i < json.children.length; i++){
+      newparents.push(json.name);
+      addParents(json.children[i], newparents);
+    }
+  }
+}
+*/
 
 // Main function to draw and set up the visualization, once we have the data.
 function createVisualization(json) {
@@ -83,7 +110,14 @@ function createVisualization(json) {
       .attr("display", function(d) { return d.depth ? null : "none"; })
       .attr("d", arc)
       .attr("fill-rule", "evenodd")
-      .style("fill", function(d) { return colors[d.name]; })
+      .style("fill", function(d) {
+        if(d.hasOwnProperty('parent') && d.hasOwnProperty('children')){
+          return colors[d.name];
+        }
+        else if (d.hasOwnProperty('parent')){
+          return colors[d.parent.name];
+        }
+      })
       .style("opacity", 1)
       .on("mouseover", mouseover);
 

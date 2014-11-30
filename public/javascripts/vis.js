@@ -22,11 +22,14 @@ var barColor = 'steelblue';
 // function segColor(c){ return {low:"#807dba", mid:"#e08214",high:"#41ab5d"}[c]; }
 
 function histoGram(fD) {
+    // fD = statement objects from db
     // fD.forEach(function(d){d.total=d.freq.low+d.freq.mid+d.freq.high;});
+
+    // Getting only the statement & no. agreements
     var fD = fD.map(function(d){return [d.text,d.agreements];});
 
 
-    console.log(fD)
+    //console.log(fD)
 
     var hG={},    hGDim = {t: 60, r: 0, b: 30, l: 0};
     hGDim.w = 500 - hGDim.l - hGDim.r,
@@ -79,7 +82,6 @@ function histoGram(fD) {
         // // call update functions of pie-chart and legend.
         // pC.update(nD);
         // leg.update(nD);
-
         d3.select("#statement-info").text(d[0])
     }
 
