@@ -55,7 +55,7 @@ d3.text("out.csv", function(text) {
   var csv = d3.csv.parseRows(text);
   var json = buildHierarchy(csv);
   larss = json
-  console.log(json);
+  //console.log(json);
   createVisualization(json);
 });
 
@@ -84,6 +84,15 @@ function addParents(json, parents){
 }
 */
 
+function getBurstColor(d){
+  if(d.hasOwnProperty('parent') && d.hasOwnProperty('children')){
+    return colors[d.name];
+  }
+  else if (d.hasOwnProperty('parent')){
+    return colors[d.parent.name];
+  }
+}
+
 // Main function to draw and set up the visualization, once we have the data.
 function createVisualization(json) {
 
@@ -111,12 +120,7 @@ function createVisualization(json) {
       .attr("d", arc)
       .attr("fill-rule", "evenodd")
       .style("fill", function(d) {
-        if(d.hasOwnProperty('parent') && d.hasOwnProperty('children')){
-          return colors[d.name];
-        }
-        else if (d.hasOwnProperty('parent')){
-          return colors[d.parent.name];
-        }
+        return getBurstColor(d);
       })
       .style("opacity", 1)
       .on("mouseover", mouseover);
@@ -232,7 +236,9 @@ function updateBreadcrumbs(nodeArray, percentageString) {
 
   entering.append("svg:polygon")
       .attr("points", breadcrumbPoints)
-      .style("fill", function(d) { return colors[d.name]; });
+      .style("fill", function(d) {
+        return getBurstColor(d);
+        });
 
   entering.append("svg:text")
       .attr("x", (b.w + b.t) / 2)

@@ -127,7 +127,7 @@ router.get('/', function (req, res) {
 			},
 			function (err, statementsWithCounts) {
 			  	res.render('index', {
-					stmts: statementsWithCounts,
+					stmts: statementsWithCounts,		// making stmts available for other js
 					title: 'Stemtest Visualization'
 				});
 			}
