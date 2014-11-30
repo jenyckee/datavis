@@ -4,7 +4,7 @@ var async = require('async');
 
 var router = express.Router();
 
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect('mongodb://jenyckee:abc123@ds055990.mongolab.com:55990/infoviz');
 
 var db = mongoose.connection;
 
@@ -112,7 +112,7 @@ router.get('/', function (req, res) {
 
 	Statement.find({}, function (err, statements) {
 
-		async.map(statements, 
+		async.map(statements,							// async.map(data, mapfunction, callback(e,r))
 			function (statement, done) {
 				var condition = JSON.parse("{ \"stmt"+statement.id+"\" : 1 }");
 				Record.count(condition, function (err, count) {
@@ -124,10 +124,10 @@ router.get('/', function (req, res) {
 						done(null, { id : statement.id, text: statement.text, parties: statement.parties , agreements: count});
 					}
 				});
-			}, 
+			},
 			function (err, statementsWithCounts) {
 			  	res.render('index', {
-					stmts: statementsWithCounts,
+					stmts: statementsWithCounts,		// making stmts available for other js
 					title: 'Stemtest Visualization'
 				});
 			}

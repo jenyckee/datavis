@@ -1,16 +1,29 @@
 extends layout
 
 block content
-	header
-		h1= title
-	div.container
-		div.content
-			div.row
-				div.col-md-6#statements
-				div.col-md-6#legend
-					div.panel.panel-default
-						div.panel-body#statement-info
-	script.
-		var stmts = !{JSON.stringify(stmts)}
-	script(src='javascripts/map.js')
-
+   header
+      h1= title
+   div.container
+      div.content
+        div.col-md-6#sunburst
+          #main.col-md-10
+            #sequence
+            #chart
+              #explanation(style='visibility: hidden;')
+                span#percentage
+                br
+                | of all Belgian votes
+          #sidebar.col-md-2
+            input#togglelegend(type='checkbox')
+            | Legend
+            br
+            #legend(style='visibility: hidden;')
+        div.col-md-6#stemtest
+          div.row#statements
+          div.row#legend
+             div.panel.panel-default
+                div.panel-body#statement-info
+   script.
+      var stmts = !{JSON.stringify(stmts)}
+   script(type='text/javascript', src='javascripts/vis.js')
+   script(type='text/javascript', src='javascripts/sequences.js')
