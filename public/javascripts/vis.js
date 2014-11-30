@@ -25,12 +25,6 @@ function histoGram(fD) {
     // fD = statement objects from db
     // fD.forEach(function(d){d.total=d.freq.low+d.freq.mid+d.freq.high;});
 
-    // Getting only the statement & no. agreements
-    var fD = fD.map(function(d){return [d.text,d.agreements];});
-
-
-    //console.log(fD)
-
     var hG={},    hGDim = {t: 60, r: 0, b: 30, l: 0};
     hGDim.w = 500 - hGDim.l - hGDim.r,
     hGDim.h = 300 - hGDim.t - hGDim.b;
@@ -43,8 +37,7 @@ function histoGram(fD) {
 
     // create function for x-axis mapping.
     var x = d3.scale.ordinal().rangeRoundBands([0, hGDim.w], 0.1)
-            .domain(fD.map(function(d) { return d[0]; }));
-
+            .domain(fD.map(function(d) { return d.text; }));
     // Add x-axis to the histogram svg.
     // hGsvg.append("g").attr("class", "x axis")
     //     .attr("transform", "translate(0," + hGDim.h + ")")
@@ -52,26 +45,28 @@ function histoGram(fD) {
 
     // Create function for y-axis map.
     var y = d3.scale.linear().range([hGDim.h, 0])
-            .domain([0, d3.max(fD, function(d) { return d[1]; })]);
+            .domain([0, d3.max(fD, function(d) { return d.agreements; })]);
 
     // Create bars for histogram to contain rectangles and freq labels.
     var bars = hGsvg.selectAll(".bar").data(fD).enter()
-            .append("g").attr("class", "bar");
+              .append("g").attr("class", "bar");
 
     //create the rectangles.
     bars.append("rect")
-        .attr("x", function(d) { return x(d[0]); })
-        .attr("y", function(d) { return y(d[1]); })
+        .attr("x", function(d) { return x(d.text); })
+        .attr("y", function(d) { return y(d.agreements); })
         .attr("width", x.rangeBand())
-        .attr("height", function(d) { return hGDim.h - y(d[1]); })
+        .attr("height", function(d) { return hGDim.h - y(d.agreements); })
         .attr('fill',barColor)
         .on("mouseover",mouseover)// mouseover is defined below.
         .on("mouseout",mouseout);// mouseout is defined below.
 
+
+
     //Create the frequency labels above the rectangles.
-    bars.append("text").text(function(d){ return d3.format(",")(d[1])})
-        .attr("x", function(d) { return x(d[0])+x.rangeBand()/2; })
-        .attr("y", function(d) { return y(d[1])-5; })
+    bars.append("text").text(function(d){ return d3.format(",")(d.agreements)})
+        .attr("x", function(d) { return x(d.text)+x.rangeBand()/2; })
+        .attr("y", function(d) { return y(d.agreements)-5; })
         .attr("text-anchor", "middle");
 
     function mouseover(d){  // utility function to be called on mouseover.
@@ -82,10 +77,12 @@ function histoGram(fD) {
         // // call update functions of pie-chart and legend.
         // pC.update(nD);
         // leg.update(nD);
-        d3.select("#statement-info").text(d[0])
+        d3.select("#statement-info").text(d.text)
+        burstHighlight(d.parties);
     }
 
     function mouseout(d){
+      burstUnhighlightAll();
     // utility function to be called on mouseout.
         // // reset the pie-chart and legend.
         // pC.update(tF);

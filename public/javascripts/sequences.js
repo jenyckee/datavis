@@ -15,7 +15,7 @@ var colors = {
 "MR" : "#1C72C2",
 "CD&V" :"#F26C00",
 "OpenVLD" : "#1C76C7",
-"spa" : "#D11F1F",
+"SP.A" : "#D11F1F",
 "CDH" : "#E46600",
 "Groen" : "#5DA115",
 "Ecolo" : "#5DA115",
@@ -185,10 +185,23 @@ function mouseleave(d) {
       .style("visibility", "hidden");
 }
 
+function adaptPartiesToBurst(parties){
+  return parties.map(function(party){
+    if(party == "N-VA")
+      return "NVA";
+    else if(party == "Vlaams Belang")
+      return "VB";
+    else
+      return party;
+  });
+}
 
 function burstHighlight(parties){
+  parties = adaptPartiesToBurst(parties);
   // Fade all the parties
   d3.selectAll("path")
+      .transition()
+      .duration(1000)
       .style("opacity", 0.3);
 
   parties.map(function(party){
