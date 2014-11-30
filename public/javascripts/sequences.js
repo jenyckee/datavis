@@ -28,7 +28,7 @@ var colors = {
 
 
 };
-var larss;
+var partyvotes;
 // Total size of all segments; we set this later, after loading the data.
 var totalSize = 0;
 
@@ -54,7 +54,7 @@ var arc = d3.svg.arc()
 d3.text("out.csv", function(text) {
   var csv = d3.csv.parseRows(text);
   var json = buildHierarchy(csv);
-  larss = json
+  partyvotes = json
   //console.log(json);
   createVisualization(json);
 });
@@ -183,6 +183,41 @@ function mouseleave(d) {
 
   d3.select("#explanation")
       .style("visibility", "hidden");
+}
+
+
+function burstHighlight(parties){
+  // Fade all the parties
+  d3.selectAll("path")
+      .style("opacity", 0.3);
+
+  parties.map(function(party){
+    highlightParty(party);
+    });
+
+  // Highlight parties
+  function highlightParty(party){
+  vis.selectAll("path")
+      .filter(function(node) {
+                if(node.name == party)
+                  return true;
+                else if(node.hasOwnProperty('parent') && node.parent.name == party)
+                  return true;
+                else
+                  return false;
+                //return (sequenceArray.indexOf(node) >= 0);
+              })
+      .transition()
+      .duration(1000)
+      .style("opacity", 1);
+    }
+}
+
+function burstUnhighlightAll(){
+  d3.selectAll("path")
+      .transition()
+      .duration(1000)
+      .style("opacity", 1);
 }
 
 // Given a node in a partition layout, return an array of all of its ancestor
