@@ -1,52 +1,177 @@
 [
-	{
-		"id" : 1,
-		"text": "Er moet een rijbewijs met punten komen",
-		"parties": ["CD&V","Groen","N-VA","OpenVld","SP.A"]
-	},
-	{
-		"id" : 2,
-		"text": "Een moeder moet anoniem haar kind kunnen afstaan voor adoptie",
-		"parties": ["OpenVld","SP.A","Vlaams Belang"]
-	},
-	{
-		"id" : 3,
-		"text": "De maximumsnelheid op de Brusselse ring moet verlaagd worden tot 100 km per uur",
-		"parties": ["Groen","SP.A"]
-	},
-	{
-		"id" : 4,
-		"text": "De treinstations die door weinig reizigers gebruikt worden, moeten ook open blijven",
-		"parties": ["CD&V","Groen","N-VA","Vlaams Belang","SP.A"]
-	},
-	{
-		"id" : 5,
-		"text": "Er mag geen alcohol in drankautomaten zitten",
-		"parties": ["CD&V","Groen","Vlaams Belang","SP.A"]
-	},
-	{
-		"id" : 6,
-		"text": "Leefloners moeten verplicht kunnen worden gemeenschapswerk te verrichten",
-		"parties": ["CD&V","Vlaams Belang","OpenVld","N-VA"]
-	},
-	{
-		"id" : 7,
-		"text": "De minimumleeftijd voor GAS-boetes moet hoger liggen dan de huidige leeftijd van 14 jaar",
-		"parties": ["Groen"]
-	},
-	{
-		"id" : 8,
-		"text": "Europa moet meer sociale bevoegdheden krijgen",
-		"parties": ["CD&V","Groen","OpenVld","SP.A"]
-	},
-	{
-		"id" : 9,
-		"text": "Mensen die hun geld investeren in plaats van te sparen moeten fiscaal beloond worden",
-		"parties": ["Groen","N-VA","OpenVld","Vlaams Belang"]
-	},
-	{
-		"id" : 10,
-		"text": "België moet migranten van buiten de EU toelaten om tekorten op de arbeidsmarkt op te vangen",
-		"parties": ["CD&V","Groen","N-VA","OpenVld","SP.A"]
-	}
+{
+"id" : 1,
+"text" : "Er moet een rijbewijs met punten komen",
+"parties" : ["CD&V", "Groen", "N-VA", "OpenVLD", "SP.A"]
+},
+{
+"id" : 2,
+"text" : "Een moeder moet anoniem haar kind kunnen afstaan voor adoptie",
+"parties" : ["OpenVLD", "SP.A", "Vlaams Belang"]
+},
+{
+"id" : 3,
+"text" : "De maximumsnelheid op de Brusselse ring moet verlaagd worden tot 100 km per uur",
+"parties" : ["Groen","SP.A"]
+},
+{
+"id" : 4,
+"text" : "De treinstations die door weinig reizigers gebruikt worden, moeten ook open blijven",
+"parties" : ["CD&V", "Groen", "N-VA", "SP.A", "Vlaams Belang"]
+},
+{
+"id" : 5,
+"text" : "Er mag geen alcohol in drankautomaten zitten",
+"parties" : ["CD&V", "Groen", "SP.A", "Vlaams Belang"]
+},
+{
+"id" : 6,
+"text" : "Leefloners moeten verplicht kunnen worden gemeenschapswerk te verrichten",
+"parties" : ["CD&V", "N-VA", "OpenVLD", "Vlaams Belang"]
+},
+{
+"id" : 7,
+"text" : "De minimumleeftijd voor GAS-boetes moet hoger liggen dan de huidige leeftijd van 14 jaar",
+"parties" : ["Groen"]
+},
+{
+"id" : 8,
+"text" : "Europa moet meer sociale bevoegdheden krijgen",
+"parties" : ["CD&V", "Groen", "OpenVLD", "SP.A"]
+},
+{
+"id" : 9,
+"text" : "Mensen die hun geld investeren in plaats van te sparen moeten fiscaal beloond worden",
+"parties" : ["Groen", "N-VA", "OpenVLD", "Vlaams Belang"]
+},
+{
+"id" : 10,
+"text" : "België moet migranten van buiten de EU toelaten om tekorten op de arbeidsmarkt op te vangen",
+"parties" : ["CD&V", "Groen", "N-VA", "OpenVLD", "SP.A"]
+}
+{
+"id" : 11,
+"text" : "Het moet makkelijker worden om werknemers te ontslaan",
+"parties" : ["N-VA", "OpenVLD"]
+},
+{
+"id" : 12,
+"text" : "De federale overheid moet haar aandelen in Belgacom verkopen",
+"parties" : ["CD&V", "N-VA", "OpenVLD", "Vlaams Belang"]
+},
+{
+"id" : 13,
+"text" : "Als er bij de NMBS wordt gestaakt, moet er een minimumdienst zijn",
+"parties" : ["CD&V", "Groen", "N-VA", "OpenVLD", "Vlaams Belang"]
+},
+{
+"id" : 14,
+"text" : "Het Belgische leger moet investeren in een opvolger van het F-16 gevechtsvliegtuig",
+"parties" : ["CD&V", "N-VA", "OpenVLD"]
+},
+{
+"id" : 15,
+"text" : "Het rookverbod in de horeca moet worden versoepeld",
+"parties" : ["Vlaams Belang"]
+},
+{
+"id" : 16,
+"text" : "De voorzitter van de Europese Commissie moet rechtstreeks worden verkozen door de Europeanen",
+"parties" : ["OpenVLD", "SP.A"]
+},
+{
+"id" : 17,
+"text" : "De sociale zekerheid moet volledig worden gesplitst",
+"parties" : ["N-VA", "Vlaams Belang"]
+},
+{
+"id" : 18,
+"text" : "De overheid moet pensioensparen fiscaal meer aanmoedigen",
+"parties" : ["N-VA", "OpenVLD", "Vlaams Belang"]
+},
+{
+"id" : 19,
+"text" : "Er moeten kerncentrales open blijven",
+"parties" : ["CD&V", "N-VA", "Vlaams Belang"]
+},
+{
+"id" : 20,
+"text" : "De verplichte sluitingsdag voor winkels moet worden afgeschaft",
+"parties" : ["OpenVLD"]
+},
+{
+"id" : 21,
+"text" : "De dotatie aan de koninklijke familie moet worden verminderd",
+"parties" : ["Groen", "N-VA", "OpenVLD", "SP.A", "Vlaams Belang"]
+},
+{
+"id" : 22,
+"text" : "Illegaal downloaden moet harder worden aangepakt",
+"parties" : ["N-VA", "SP.A"]
+},
+{
+"id" : 23,
+"text" : "In tijden van crisis mogen lonen niet automatisch worden aangepast aan prijsstijgingen",
+"parties" : ["N-VA", "OpenVLD"]
+},
+{
+"id" : 24,
+"text" : "Er moet een federale kieskring komen, waardoor je ook op Franstalige kandidaten kan stemmen",
+"parties" : ["Groen", "OpenVLD"]
+},
+{
+"id" : 25,
+"text" : "Grote vermogens moeten meer worden belast",
+"parties" : ["Groen", "SP.A"]
+},
+{
+"id" : 26,
+"text" : "Alle kernwapens die op Belgisch grondgebied opgeslagen zijn, moeten worden verwijderd",
+"parties" : ["Groen", "N-VA", "OpenVLD", "SP.A"]
+},
+{
+"id" : 27,
+"text" : "De uitgaven van de federale overheid mogen de komende jaren niet toenemen",
+"parties" : ["CD&V", "N-VA", "OpenVLD", "Vlaams Belang"]
+},
+{
+"id" : 28,
+"text" : "Jongeren moeten vanaf 16 jaar kunnen stemmen",
+"parties" : ["Groen", "OpenVLD"]
+},
+{
+"id" : 29,
+"text" : "Het gebruik van cannabis moet volledig worden verboden",
+"parties" : ["CD&V", "N-VA", "Vlaams Belang"]
+},
+{
+"id" : 30,
+"text" : "Asielzoekers die te lang op een beslissing moeten wachten, moeten automatisch een verblijfsvergunning krijgen",
+"parties" : ["CD&V", "Groen"]
+},
+{
+"id" : 31,
+"text" : "Bedrijfswagens moeten zwaarder worden belast",
+"parties" : ["Groen"]
+},
+{
+"id" : 32,
+"text" : "Een asielzoeker die hier als minderjarige is binnengekomen mag niet meer worden teruggestuurd",
+"parties" : ["SP.A"]
+},
+{
+"id" : 33,
+"text" : "Het moet wettelijk verboden worden voor ouders om hun kinderen te slaan",
+"parties" : ["CD&V", "Groen", "N-VA", "SP.A"]
+},
+{
+"id" : 34,
+"text" : "Mensen moeten meer belastingen (BTW) betalen op wat ze kopen dan op wat ze verdienen",
+"parties" : ["CD&V", "N-VA", "Vlaams Belang"]
+},
+{
+"id" : 35,
+"text" : "Werklozen moeten hun uitkering na een tijd verliezen",
+"parties" : ["N-VA", "OpenVLD"]
+}
 ]

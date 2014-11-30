@@ -15,7 +15,7 @@ var colors = {
 "MR" : "#1C72C2",
 "CD&V" :"#F26C00",
 "OpenVLD" : "#1C76C7",
-"spa" : "#D11F1F",
+"SP.A" : "#D11F1F",
 "CDH" : "#E46600",
 "Groen" : "#5DA115",
 "Ecolo" : "#5DA115",
@@ -28,7 +28,7 @@ var colors = {
 
 
 };
-
+var partyvotes;
 // Total size of all segments; we set this later, after loading the data.
 var totalSize = 0;
 
@@ -54,8 +54,44 @@ var arc = d3.svg.arc()
 d3.text("out.csv", function(text) {
   var csv = d3.csv.parseRows(text);
   var json = buildHierarchy(csv);
+  partyvotes = json
+  //console.log(json);
   createVisualization(json);
 });
+
+/*
+// Function to create a dual linked tree from nested array
+// json = json file containing nested arrays
+// parents = [] when calling
+// Use: generating colors for provinces
+function addParents(json, parents){
+  var newparents;
+  if(json.name == 'root'){
+    newparents = new Array;
+  }
+  else{
+    newparents = parents.slice(); // duplicating parents array by value
+  }
+
+  json.parents = parents;
+
+  if(json.hasOwnProperty('children')){
+    for(var i = 0; i < json.children.length; i++){
+      newparents.push(json.name);
+      addParents(json.children[i], newparents);
+    }
+  }
+}
+*/
+
+function getBurstColor(d){
+  if(d.hasOwnProperty('parent') && d.hasOwnProperty('children')){
+    return colors[d.name];
+  }
+  else if (d.hasOwnProperty('parent')){
+    return colors[d.parent.name];
+  }
+}
 
 // Main function to draw and set up the visualization, once we have the data.
 function createVisualization(json) {
@@ -83,7 +119,9 @@ function createVisualization(json) {
       .attr("display", function(d) { return d.depth ? null : "none"; })
       .attr("d", arc)
       .attr("fill-rule", "evenodd")
-      .style("fill", function(d) { return colors[d.name]; })
+      .style("fill", function(d) {
+        return getBurstColor(d);
+      })
       .style("opacity", 1)
       .on("mouseover", mouseover);
 
@@ -147,6 +185,54 @@ function mouseleave(d) {
       .style("visibility", "hidden");
 }
 
+function adaptPartiesToBurst(parties){
+  return parties.map(function(party){
+    if(party == "N-VA")
+      return "NVA";
+    else if(party == "Vlaams Belang")
+      return "VB";
+    else
+      return party;
+  });
+}
+
+function burstHighlight(parties){
+  parties = adaptPartiesToBurst(parties);
+  // Fade all the parties
+  d3.selectAll("path")
+      .transition()
+      .duration(1000)
+      .style("opacity", 0.3);
+
+  parties.map(function(party){
+    highlightParty(party);
+    });
+
+  // Highlight parties
+  function highlightParty(party){
+  vis.selectAll("path")
+      .filter(function(node) {
+                if(node.name == party)
+                  return true;
+                else if(node.hasOwnProperty('parent') && node.parent.name == party)
+                  return true;
+                else
+                  return false;
+                //return (sequenceArray.indexOf(node) >= 0);
+              })
+      .transition()
+      .duration(1000)
+      .style("opacity", 1);
+    }
+}
+
+function burstUnhighlightAll(){
+  d3.selectAll("path")
+      .transition()
+      .duration(1000)
+      .style("opacity", 1);
+}
+
 // Given a node in a partition layout, return an array of all of its ancestor
 // nodes, highest first, but excluding the root.
 function getAncestors(node) {
@@ -198,7 +284,9 @@ function updateBreadcrumbs(nodeArray, percentageString) {
 
   entering.append("svg:polygon")
       .attr("points", breadcrumbPoints)
-      .style("fill", function(d) { return colors[d.name]; });
+      .style("fill", function(d) {
+        return getBurstColor(d);
+        });
 
   entering.append("svg:text")
       .attr("x", (b.w + b.t) / 2)
