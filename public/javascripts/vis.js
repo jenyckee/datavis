@@ -77,7 +77,7 @@ function histoGram(fD) {
         // // call update functions of pie-chart and legend.
         // pC.update(nD);
         // leg.update(nD);
-        d3.select("#statement-info").text(d.text)
+        d3.select("#statement-info").text(d.text);
         burstHighlight(d.parties);
     }
 
@@ -90,6 +90,13 @@ function histoGram(fD) {
     }
 
     return hG;
+}
+
+function displayStatement(statement){
+  d3.select("#statement-info").text(statement.text)
+}
+function clearDisplayStatement(statement){
+  d3.select("#statement-info").text("");
 }
 
 histoGram(stmts);
