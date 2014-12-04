@@ -133,12 +133,13 @@ var svg = d3.select("#statements").append("svg")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
  
 function histogram (data) {
-  var dbSize = 100;
 
-  data.map(function (d) { d.agreements = d.agreements/dbSize; return d} );
+  stmts = data.stmts;
 
-  x.domain(data.map(function(d) { return d.text; }));
-  y.domain([0, d3.max(data, function(d) { return d.agreements; })]);
+  stmts.map(function (d) { d.agreements = d.agreements/data.total; return d} );
+
+  x.domain(stmts.map(function(d) { return d.text; }));
+  y.domain([0, d3.max(stmts, function(d) { return d.agreements; })]);
 
   svg.append("g")
       .attr("class", "x axis")
@@ -156,7 +157,7 @@ function histogram (data) {
       .text("Agreeing");
 
   svg.selectAll(".bar")
-      .data(data)
+      .data(stmts)
     .enter().append("rect")
       .attr("class", "bar")
       .attr("x", function(d) { return x(d.text); })
@@ -179,4 +180,4 @@ function histogram (data) {
 };
 
 
-histogram(stmts);
+histogram(data);
