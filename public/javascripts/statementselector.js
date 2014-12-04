@@ -17,10 +17,6 @@ function statementSelector(stmts){
 
   selections
     .append("a").text(function(d){ return d3.format(",")(d.id)});
-
-  console.log(stmts);
-
-
 }
 
 
@@ -31,11 +27,12 @@ statementSelector(stmts);
 function onStatementSelected(statement){
   burstHighlight(statement.parties);
   displayStatement(statement);
+  doubleHistogram(statement);
 }
 
 function onStatementUnSelected(statement){
   burstUnhighlightAll();
-  clearDisplayStatement(statement)
+  clearDisplayStatement(statement);
 }
 
 /*
