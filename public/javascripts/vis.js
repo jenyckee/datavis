@@ -107,7 +107,6 @@ function histoGram(fD) {
     return hG;
 }
 
-<<<<<<< HEAD
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
     width = 500 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
@@ -182,7 +181,7 @@ function histogram (data) {
 
 
 histogram(data);
-=======
+
 function displayStatement(statement){
   d3.select("#statement-info").text(statement.text)
 }
@@ -190,5 +189,3 @@ function clearDisplayStatement(statement){
   d3.select("#statement-info").text("");
 }
 
-histoGram(stmts);
->>>>>>> 2d83b2a81bbebe3649edcdecfd7bf638abd54045
