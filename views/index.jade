@@ -5,25 +5,32 @@ block content
       h1= title
    div.container
       div.content
-        div.col-md-6#sunburst
-          #main.col-md-10
-            #sequence
-            #chart
-              #explanation(style='visibility: hidden;')
-                span#percentage
-                br
-                | of all Belgian votes
-          #sidebar.col-md-2
-            input#togglelegend(type='checkbox')
-            | Legend
-            br
-            #legend(style='visibility: hidden;')
-        div.col-md-6#stemtest
-          div.row#statements
-          div.row#legend
-             div.panel.panel-default
-                div.panel-body#statement-info
+        div.row
+          div.col-md-6#sunburst
+            #main.col-md-10
+              #sequence
+              #chart
+                #explanation(style='visibility: hidden;')
+                  span#percentage
+                  br
+                  | of all Belgian votes
+            #sidebar.col-md-2
+              input#togglelegend(type='checkbox')
+              | Legend
+              br
+              #legend(style='visibility: hidden;')
+          div.col-md-6#stemtest
+            div.row#statements
+            div.row#legend
+               div.panel.panel-default
+                  div.panel-body#statement-info
+        div.row
+          div.col
+            div.list-group.list-group-horizontal#statementselector
+
+
    script.
-      var stmts = !{JSON.stringify(stmts)}
+      var data = !{JSON.stringify(data)}
    script(type='text/javascript', src='javascripts/vis.js')
    script(type='text/javascript', src='javascripts/sequences.js')
+   script(type='text/javascript', src='javascripts/statementselector.js')

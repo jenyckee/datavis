@@ -126,9 +126,11 @@ router.get('/', function (req, res) {
 				});
 			},
 			function (err, statementsWithCounts) {
-			  	res.render('index', {
-					stmts: statementsWithCounts,		// making stmts available for other js
-					title: 'Stemtest Visualization'
+				Record.count({}, function (err, total) {
+					res.render('index', {
+						data: {stmts:statementsWithCounts, total:total},		// making stmts available for other js
+						title: 'Stemtest Visualization'
+					});
 				});
 			}
 		);
