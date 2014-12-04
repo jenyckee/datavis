@@ -46,6 +46,9 @@ function doubleHistogram(statement){
 
 
     // Bars
+    //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    // Agreements <> disagreements
+    //****************************
     var bar = chart.selectAll("g")
                 .data(statement)
               .enter().append("g")
@@ -74,7 +77,11 @@ function doubleHistogram(statement){
       return numberOfUsers - agreements;
     }
 
-  // Axis
+  // Parliament: Agree/Disagreeing parties
+  //**************************************
+  // TODO
+
+  // Axes
   var yAxis1 = d3.svg.axis()
             .scale(y)
             .orient('left');
