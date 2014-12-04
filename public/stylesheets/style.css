@@ -74,7 +74,7 @@ rect:hover {  fill:blue; }
 }
 
 .x.axis path {  display: none; }
-.legend{
+.legend {
     margin-bottom:76px;
     display:inline-block;
     border-collapse: collapse;

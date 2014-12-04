@@ -47,6 +47,21 @@ function histoGram(fD) {
     var y = d3.scale.linear().range([hGDim.h, 0])
             .domain([0, d3.max(fD, function(d) { return d.agreements; })]);
 
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("right")
+        .ticks(10, "%");
+
+    hGsvg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Frequency");
+
     // Create bars for histogram to contain rectangles and freq labels.
     var bars = hGsvg.selectAll(".bar").data(fD).enter()
               .append("g").attr("class", "bar");
@@ -63,11 +78,11 @@ function histoGram(fD) {
 
 
 
-    //Create the frequency labels above the rectangles.
-    bars.append("text").text(function(d){ return d3.format(",")(d.agreements)})
-        .attr("x", function(d) { return x(d.text)+x.rangeBand()/2; })
-        .attr("y", function(d) { return y(d.agreements)-5; })
-        .attr("text-anchor", "middle");
+    // //Create the frequency labels above the rectangles.
+    // bars.append("text").text(function (d) { return d3.format(",")(d.agreements)})
+    //     .attr("x", function(d) { return x(d.text)+x.rangeBand()/2; })
+    //     .attr("y", function(d) { return y(d.agreements)-5; })
+    //     .attr("text-anchor", "middle");
 
     function mouseover(d){  // utility function to be called on mouseover.
         // filter for selected state.
@@ -92,4 +107,76 @@ function histoGram(fD) {
     return hG;
 }
 
-histoGram(stmts);
+var margin = {top: 20, right: 20, bottom: 30, left: 40},
+    width = 500 - margin.left - margin.right,
+    height = 300 - margin.top - margin.bottom;
+
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .1);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left")
+    .ticks(10, "%");
+
+var svg = d3.select("#statements").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+ 
+function histogram (data) {
+  var dbSize = 100;
+
+  data.map(function (d) { d.agreements = d.agreements/dbSize; return d} );
+
+  x.domain(data.map(function(d) { return d.text; }));
+  y.domain([0, d3.max(data, function(d) { return d.agreements; })]);
+
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")");
+      // .call(xAxis);
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+      .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Agreeing");
+
+  svg.selectAll(".bar")
+      .data(data)
+    .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return x(d.text); })
+      .attr("width", x.rangeBand())
+      .attr("y", function(d) { return y(d.agreements); })
+      .attr("height", function(d) { return height - y(d.agreements); })
+      .attr('fill',barColor)
+      .on("mouseover",mouseover)// mouseover is defined below.
+      .on("mouseout",mouseout);// mouseout is defined below.
+
+  function mouseover (d){ 
+        d3.select("#statement-info").text(d.text)
+        burstHighlight(d.parties);
+    }
+
+  function mouseout (d){
+      burstUnhighlightAll();
+    }
+
+};
+
+
+histogram(stmts);
