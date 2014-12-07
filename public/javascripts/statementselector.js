@@ -21,7 +21,7 @@ function statementSelector(stmts){
 
 
 
-statementSelector(stmts);
+statementSelector(data.stmts);
 
 // Callback when a statement has been selected
 function onStatementSelected(statement){

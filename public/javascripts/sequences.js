@@ -8,26 +8,8 @@ var b = {
   w: 75, h: 30, s: 3, t: 10
 };
 
-// Mapping of step names to colors.
-var colors = {
-"NVA" :"#FBE700",
-"PS" : "#D21F1F",
-"MR" : "#1C72C2",
-"CD&V" :"#F26C00",
-"OpenVLD" : "#1C76C7",
-"SP.A" : "#D11F1F",
-"CDH" : "#E46600",
-"Groen" : "#5DA115",
-"Ecolo" : "#5DA115",
-"VB" :"#DFB300",
-"PVDA" : "#760000",
-"FDF" : "#AC0157",
-"PP" : "#797979",
-"LDD" : "#73A6BE",
-"Anderen" : "#E7E7E7"
 
 
-};
 var partyvotes;
 // Total size of all segments; we set this later, after loading the data.
 var totalSize = 0;
@@ -54,8 +36,7 @@ var arc = d3.svg.arc()
 d3.text("out.csv", function(text) {
   var csv = d3.csv.parseRows(text);
   var json = buildHierarchy(csv);
-  partyvotes = json
-  //console.log(json);
+  partyvotes = json;
   createVisualization(json);
 });
 
@@ -183,17 +164,6 @@ function mouseleave(d) {
 
   d3.select("#explanation")
       .style("visibility", "hidden");
-}
-
-function adaptPartiesToBurst(parties){
-  return parties.map(function(party){
-    if(party == "N-VA")
-      return "NVA";
-    else if(party == "Vlaams Belang")
-      return "VB";
-    else
-      return party;
-  });
 }
 
 function burstHighlight(parties){

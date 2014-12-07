@@ -106,7 +106,7 @@ function histoGram(fD) {
 
     return hG;
 }
-
+/*
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
     width = 500 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
@@ -131,7 +131,7 @@ var svg = d3.select("#statements").append("svg")
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
- 
+*/
 function histogram (data) {
 
   stmts = data.stmts;
@@ -168,7 +168,7 @@ function histogram (data) {
       .on("mouseover",mouseover)// mouseover is defined below.
       .on("mouseout",mouseout);// mouseout is defined below.
 
-  function mouseover (d){ 
+  function mouseover (d){
         d3.select("#statement-info").text(d.text)
         burstHighlight(d.parties);
     }
@@ -180,7 +180,7 @@ function histogram (data) {
 };
 
 
-histogram(data);
+//histogram(data);
 
 function displayStatement(statement){
   d3.select("#statement-info").text(statement.text)
@@ -188,4 +188,3 @@ function displayStatement(statement){
 function clearDisplayStatement(statement){
   d3.select("#statement-info").text("");
 }
-
