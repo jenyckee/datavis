@@ -51,7 +51,7 @@ function doubleHistogram(statement){
 
     // Number of bars in the diagram (needed to compute width of each bar)
     var numberOfBars = 3;
-    var interBarSpace = 100;
+    var interBarSpace = 50;
 
     //var testdata = [4, 8, 15, 99, 50, 99];
 
@@ -59,7 +59,7 @@ function doubleHistogram(statement){
       width = 500 - margin.left - margin.right,   // total available width for bars
       height = 200 - margin.top - margin.bottom;  // total available height for bars (positive OR negative)
 
-    var barWidth = (width / numberOfBars) - interBarSpace;
+    var barWidth = (width / numberOfBars) - 100;
 
     var y = d3.scale.linear()
               .domain([0, 100]) // Working on a % scale
@@ -83,7 +83,7 @@ function doubleHistogram(statement){
                 .data(statementarray)
               .enter().append("g")
                 .attr("transform", function(d, i) {
-                   return "translate(" + (margin.left + (i * barWidth)) + "," + margin.top +")";});
+                   return "translate(" + (margin.left-10 + interBarSpace) + "," + margin.top +")";});
 
     // Agreements
     bar.append("rect")
@@ -108,24 +108,35 @@ function doubleHistogram(statement){
       return numberOfUsers - agreements;
     }
 
-  // Parliament: Agree/Disagreeing parties
+  // Parliament/Government: Agree/Disagreeing parties
   //**************************************
-  // TODO
   // Fetching data
   var flemishParties = ["NVA", "CD&V", "SP.A", "OpenVLD", "Groen", "VB"];
+  var govParties = ["NVA", "CD&V", "OpenVLD"];  // flemish parties in government
   var agreeingparties = adaptPartiesToBurst(statement.parties);
 
   // Main control parliament bar
   d3.text("out.csv", function(rawData){
     var partydata = parsePartyData(rawData);
     var partyvotes = sumOfPartyVotes(partydata);  // sum votes of all provinces per party
-    var sumOfVotes = computeTotal(partyvotes);  // sum of all votes
+
+    // Flemish parties is federal parliament
+    var sumOfVotes = computeTotal(partyvotes);  // sum of all votes, flemish parliament parties
     var partyvotespercent = new Map();
     partyvotes.forEach(function(val, key){
-
-      partyvotespercent.set(key, convertToPercent(val, sumOfVotes))
+      partyvotespercent.set(key, convertToPercent(val, sumOfVotes));
     });
     drawParliamentBar(partyvotespercent);
+
+    // Flemish parties in federal government
+    var govpartyvotes = filterGovParties(partyvotes);
+    var sumOfGovVotes = computeTotal(govpartyvotes);
+    var govpartyvotespercent = new Map();
+    govpartyvotes.forEach(function(val, key){
+      govpartyvotespercent.set(key, convertToPercent(val, sumOfGovVotes));
+    });
+    drawGovernmentBar(govpartyvotespercent);
+
     drawAxes();
   });
   // Parsing data
@@ -147,9 +158,6 @@ function doubleHistogram(statement){
     return (item/total)*100;
   }
 
-  // Draw the parliament bar
-  //------------------------
-  // Returns a Map with <key,value> pairs: key = partyname, value = no. votes
   function sumOfPartyVotes(allpartyvotes){
     var result = new Map();
     for(var i in allpartyvotes){
@@ -158,22 +166,37 @@ function doubleHistogram(statement){
           return province.size;
       });
       result.set(allpartyvotes[i].name, votes.reduce(function(prev, curr) {
-        return prev + curr;
-      }));
+          return prev + curr;
+        }));
+      }
     }
+    return result;
   }
-  return result;
-}
+
+  function filterGovParties(partyvotes){
+    var result = partyvotes;
+    partyvotes.forEach(function(val, key) {
+      if(govParties.indexOf(key) == -1){
+        result.delete(key);
+      }
+    });
+    return result;
+  }
+
+  // Draw the parliament bar
+  //------------------------
+  var heightscale = d3.scale.linear()
+                    .domain([0, 100]) // Working on a % scale
+                    .range([0, height]);
+
   // Draws the parliamentbar, partyvotes (map<party, % of votes)
   function drawParliamentBar(partyvotes){
     var bar2 = barchart.append("g")
-                      .attr("transform","translate(" + (margin.left +  barWidth + interBarSpace ) + "," + margin.top + ")");
-  //  console.log(parlbar);
+                      .attr("transform","translate(" + (margin.left-10 +  barWidth + 2*interBarSpace ) + "," + margin.top + ")");
+
     // Agreeing parties (en generating an array with disagreeing parties meanwhile)
       var disagreeingparties = new Array();
-      var heightscale = d3.scale.linear()
-                          .domain([0, 100]) // Working on a % scale
-                          .range([0, height]);
+
       var previousY = y(0);
       for(var i in flemishParties){
         var currparty = flemishParties[i];
@@ -227,6 +250,72 @@ function doubleHistogram(statement){
 
             nextY = nextY + heightscale(votes);
       }
+  }
+
+// Government: Agree/Disagreeing parties
+//**************************************
+
+  function drawGovernmentBar(partyvotes){
+    var bar3 = barchart.append("g")
+                     .attr("transform","translate(" + (margin.left-10 + 2*barWidth + 3*interBarSpace) + "," + margin.top + ")");
+
+  // Agreeing parties (en generating an array with disagreeing parties meanwhile)
+    var disagreeingparties = new Array();
+    var previousY = y(0);
+
+    for(var i in govParties){
+      var currparty = govParties[i];
+      if(agreeingparties.indexOf(currparty) == -1){ // getting disagreeing parties
+        disagreeingparties.push(currparty);
+      }
+      else{
+        // Computing y-coördinate
+        var votes;
+        if(partyvotes.has(currparty)){
+          votes = partyvotes.get(currparty);
+        }
+        else {
+          console.warn("VIS2 -- couldn't find votes of party");
+          votes = null;
+        }
+
+        bar3.append("rect")
+            .attr("y", y(votes) - (y(0) - previousY)) // y-co from top
+            .attr("height", heightscale(votes))
+            .attr("width", barWidth - 1)
+            .attr("fill", colors[currparty])
+            .attr("party", currparty)
+            .attr("votes", votes);
+
+
+      previousY = y(votes) - (y(0) - previousY);
+      }
+    }
+    // Disagreeing parties
+    nextY = y(0);
+    for(var j in disagreeingparties){
+      var currparty = disagreeingparties[j];
+
+      // Computing y-coördinate
+      var votes;
+      if(partyvotes.has(currparty)){
+        votes = partyvotes.get(currparty);
+      }
+      else {
+        console.warn("VIS2 -- couldn't find votes of party");
+        votes = null;
+      }
+      bar3.append("rect")
+          .attr("y", nextY)
+          .attr("height", heightscale(votes))
+          .attr("width", barWidth - 1)
+          .attr("fill", colors[currparty])
+          .attr("party", currparty)
+          .attr("votes", votes);
+
+          nextY = nextY + heightscale(votes);
+    }
+
   }
 
 
