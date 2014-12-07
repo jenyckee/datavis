@@ -167,11 +167,13 @@ function doubleHistogram(statement){
   // Draws the parliamentbar, partyvotes (map<party, % of votes)
   function drawParliamentBar(partyvotes){
     var bar2 = barchart.append("g")
-                      .attr("lavaho", "hehe")
                       .attr("transform","translate(" + (margin.left +  barWidth + interBarSpace ) + "," + margin.top + ")");
   //  console.log(parlbar);
     // Agreeing parties (en generating an array with disagreeing parties meanwhile)
       var disagreeingparties = new Array();
+      var heightscale = d3.scale.linear()
+                          .domain([0, 100]) // Working on a % scale
+                          .range([0, height]);
       var previousY = y(0);
       for(var i in flemishParties){
         var currparty = flemishParties[i];
@@ -188,9 +190,7 @@ function doubleHistogram(statement){
             console.warn("VIS2 -- couldn't find votes of party");
             votes = null;
           }
-          var heightscale = d3.scale.linear()
-                              .domain([0, 100]) // Working on a % scale
-                              .range([0, height]);
+
           bar2.append("rect")
               .attr("y", y(votes) - (y(0) - previousY)) // y-co from top
               .attr("height", heightscale(votes))
@@ -202,6 +202,30 @@ function doubleHistogram(statement){
 
         previousY = y(votes) - (y(0) - previousY);
         }
+      }
+      // Disagreeing parties
+      nextY = y(0);
+      for(var j in disagreeingparties){
+        var currparty = disagreeingparties[j];
+
+        // Computing y-coördinate
+        var votes;
+        if(partyvotes.has(currparty)){
+          votes = partyvotes.get(currparty);
+        }
+        else {
+          console.warn("VIS2 -- couldn't find votes of party");
+          votes = null;
+        }
+        bar2.append("rect")
+            .attr("y", nextY)
+            .attr("height", heightscale(votes))
+            .attr("width", barWidth - 1)
+            .attr("fill", colors[currparty])
+            .attr("party", currparty)
+            .attr("votes", votes);
+
+            nextY = nextY + heightscale(votes);
       }
   }
 
