@@ -27,6 +27,7 @@ statementSelector(data.stmts);
 function onStatementSelected(statement){
   burstHighlight(statement.parties);
   displayStatement(statement);
+  histogram(data);
   doubleHistogram(statement);
 }
 

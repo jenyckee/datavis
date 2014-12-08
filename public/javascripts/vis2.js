@@ -38,16 +38,20 @@ function normalizeToUsers(number){
 }
 
 function doubleHistogram(statement){
-
     // Clearing previous chart
     removeDoubleHistogram();
+
+    // Conversion to whole % (p.e. 0.1 -> 10)
+    function getAgreements(statement){
+      return statement.agreements * 100;
+    }
 
     // d3 expects an array of data
     var statementarray = [statement];
 
     // Bar colors for agreements and disagreements
-    var agreementsColor = 'forestgreen'
-    var disagreementsColor = 'crimson';
+    var agreementsColor = 'palegreen'
+    var disagreementsColor = 'tomato';
 
     // Number of bars in the diagram (needed to compute width of each bar)
     var numberOfBars = 3;
@@ -65,7 +69,7 @@ function doubleHistogram(statement){
               .domain([0, 100]) // Working on a % scale
               .range([height,0]);
 
-   chartsvg = d3.select("#statements")
+   chartsvg = d3.select("#percentagebars")
                     .append("svg")
                     .attr('class', "chart");
 
@@ -77,6 +81,10 @@ function doubleHistogram(statement){
 
     // Bars
     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    var heightscale = d3.scale.linear()
+                      .domain([0, 100]) // Working on a % scale
+                      .range([0, height]);
+
     // Agreements <> disagreements
     //****************************
     var bar = barchart.selectAll("g")
@@ -88,9 +96,9 @@ function doubleHistogram(statement){
     // Agreements
     bar.append("rect")
         .attr("y", function(d) {
-                    return y(normalizeToUsers(d.agreements)); // y-co from top
+                    return y(normalizeToUsers(getAgreements(d))); // y-co from top
                     })
-        .attr("height", function(d) {return height - y(normalizeToUsers(d.agreements));})
+        .attr("height", function(d) {return heightscale(getAgreements(d));})
         .attr("width", barWidth - 1)
         .attr("fill", agreementsColor);
 
@@ -98,14 +106,13 @@ function doubleHistogram(statement){
     bar.append("rect")
         .attr("y", function(d) {
           return y(0);})
-        .attr("height", function(d) {
-          return height - y(normalizeToUsers(getDisagreements(d.agreements)));
+        .attr("height", function(d) { return heightscale(getDisagreements(getAgreements(d)));
         })
         .attr("width", barWidth - 1)
         .attr("fill", disagreementsColor);
 
     function getDisagreements(agreements){
-      return numberOfUsers - agreements;
+      return 100 - agreements;
     }
 
   // Parliament/Government: Agree/Disagreeing parties
@@ -185,9 +192,7 @@ function doubleHistogram(statement){
 
   // Draw the parliament bar
   //------------------------
-  var heightscale = d3.scale.linear()
-                    .domain([0, 100]) // Working on a % scale
-                    .range([0, height]);
+
 
   // Draws the parliamentbar, partyvotes (map<party, % of votes)
   function drawParliamentBar(partyvotes){

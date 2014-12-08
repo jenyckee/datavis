@@ -61,7 +61,7 @@ a {
 
 path {  stroke: #fff; }
 path:hover {  opacity:0.9; }
-rect:hover {  fill:blue; }
+rect:hover {  fill:turquoise; }
 
 .axis {  font: 10px sans-serif; }
 .legend tr{    border-bottom:1px solid grey; }

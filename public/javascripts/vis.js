@@ -17,7 +17,7 @@ var parties = [Cdv, Groen, Nva, OpenVld, Spa, VlaamsBelang]
 //                      .append("div").attr("class", "logo");
 
 
-var barColor = 'steelblue';
+var barColor = 'tan';
 
 // function segColor(c){ return {low:"#807dba", mid:"#e08214",high:"#41ab5d"}[c]; }
 
@@ -94,6 +94,7 @@ function histoGram(fD) {
         // leg.update(nD);
         d3.select("#statement-info").text(d.text);
         burstHighlight(d.parties);
+
     }
 
     function mouseout(d){
@@ -106,9 +107,9 @@ function histoGram(fD) {
 
     return hG;
 }
-/*
+
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 500 - margin.left - margin.right,
+    width = 1020 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
 var x = d3.scale.ordinal()
@@ -131,7 +132,7 @@ var svg = d3.select("#statements").append("svg")
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-*/
+
 function histogram (data) {
 
   stmts = data.stmts;
@@ -169,8 +170,9 @@ function histogram (data) {
       .on("mouseout",mouseout);// mouseout is defined below.
 
   function mouseover (d){
-        d3.select("#statement-info").text(d.text)
         burstHighlight(d.parties);
+        displayStatement(d);
+        doubleHistogram(d);
     }
 
   function mouseout (d){
@@ -180,7 +182,7 @@ function histogram (data) {
 };
 
 
-//histogram(data);
+histogram(data);
 
 function displayStatement(statement){
   d3.select("#statement-info").text(statement.text)
