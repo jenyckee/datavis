@@ -51,7 +51,7 @@ function doubleHistogram(statement){
 
     // Number of bars in the diagram (needed to compute width of each bar)
     var numberOfBars = 3;
-    var interBarSpace = 50;
+    var interBarSpace = 80;
 
     //var testdata = [4, 8, 15, 99, 50, 99];
 
@@ -136,8 +136,8 @@ function doubleHistogram(statement){
       govpartyvotespercent.set(key, convertToPercent(val, sumOfGovVotes));
     });
     drawGovernmentBar(govpartyvotespercent);
-
     drawAxes();
+    drawLabels();
   });
   // Parsing data
   function parsePartyData(f_csv){
@@ -328,7 +328,13 @@ function doubleHistogram(statement){
     barchart.append("g")
           .attr("class", "y axis")
           .attr("transform", "translate ("+ (margin.left/2 + 5) + "," + margin.top + ")")
-          .call(yAxis1);
+          .call(yAxis1)
+          .append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 6)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+          .text("Agreeing");
 
     // Hack for 2nd axis
     var y2 = d3.scale.linear()
@@ -342,7 +348,14 @@ function doubleHistogram(statement){
     barchart.append("g")
           .attr("class", "y axis")
           .attr("transform", "translate ("+ (margin.left/2 + 5) + "," + (margin.top + height) + ")")
-          .call(yAxis2);
+          .call(yAxis2)
+          .append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("x", -98)
+          .attr("y", 6)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+          .text("Disagreeing");
 
     var x = d3.scale.linear()
             .domain([0,1])
@@ -359,18 +372,76 @@ function doubleHistogram(statement){
           .call(xAxis);
   }
 
-/*  chart.append("path")
-        .attr("transform", "translate ("+ (margin.left/2 + 5) + "," + (margin.top + height) + ")")
-        .attr("d", "M0,0" + "L" + width + ",0 ")
-        .attr("style", "stroke:#000000;");
-        /*.attr("x1", "0")
-        .attr("y1", "0")
-        .attr("x2", width)
-        .attr("y2", "0")
-        .attr("style", "stroke:rgb(0,0,0)");
-*/
-}
+  function drawLabels(){
+      var lbl1 = barchart.append("g")
+                          .attr("class", "axis")
+                          .append("text")
+                            .attr("y", 330);
+                            //.attr("x", 155);
+      lbl1.append("tspan")
+          .attr("dy", "1.2em")
+          .attr("x", 156)
+          .attr("style", "text-anchor:end")
+          .text("% of people")
 
+      lbl1.append("tspan")
+          .attr("dy", "1.2em")
+          .attr("x", 158)
+          .attr("style", "text-anchor:end")
+          .text("(dis)agreeing");
+
+      var lbl2 = barchart.append("g")
+                          .attr("class", "axis")
+                          .append("text")
+                            .attr("y", 330);
+
+      lbl2.append("tspan")
+          .attr("dy", "1.2em")
+          .attr("x", 295)
+          .attr("style", "text-anchor:end")
+          .text("% of participating");
+
+      lbl2.append("tspan")
+          .attr("dy", "1.2em")
+          .attr("x", 303)
+          .attr("style", "text-anchor:end")
+          .text("parties in parliament");
+
+      lbl2.append("tspan")
+          .attr("dy", "1.2em")
+          .attr("x", 302)
+          .attr("style", "text-anchor:end")
+          .text("relative to no. votes");
+
+
+      var lbl3 = barchart.append("g")
+                          .attr("class", "axis")
+                          .append("text")
+                            .attr("y", 330);
+
+      lbl3.append("tspan")
+          .attr("dy", "1.2em")
+          .attr("x", 415)
+          .attr("style", "text-anchor:end")
+          .text("% of participating");
+
+      lbl3.append("tspan")
+          .attr("dy", "1.2em")
+          .attr("x", 423)
+          .attr("style", "text-anchor:end")
+          .text("parties in government");
+
+      lbl3.append("tspan")
+          .attr("dy", "1.2em")
+          .attr("x", 422)
+          .attr("style", "text-anchor:end")
+          .text("relative to no. votes");
+
+
+  }
+
+
+}
 
 function removeDoubleHistogram(statement){
   if(chartsvg)
