@@ -377,7 +377,7 @@ function doubleHistogram(statement){
                           .attr("class", "axis")
                           .append("text")
                             .attr("y", 330);
-                            //.attr("x", 155);
+
       lbl1.append("tspan")
           .attr("dy", "1.2em")
           .attr("x", 156)
@@ -436,11 +436,7 @@ function doubleHistogram(statement){
           .attr("x", 422)
           .attr("style", "text-anchor:end")
           .text("relative to no. votes");
-
-
   }
-
-
 }
 
 function removeDoubleHistogram(statement){
