@@ -129,7 +129,7 @@ router.get('/', function (req, res) {
 				Record.count({}, function (err, total) {
 					res.render('index', {
 						data: {stmts:statementsWithCounts, total:total},		// making stmts available for other js
-						title: 'Stemtest Visualization'
+						title: 'Election Results vs Stemtest'
 					});
 				});
 			}

@@ -6,7 +6,7 @@ block content
    div.container
       div.content
         div.row
-          div.col-md-6#sunburst
+          div.col-md-6#sunburst(align='center')
             #main.col-md-10
               #sequence
               #chart
@@ -19,14 +19,19 @@ block content
               | Legend
               br
               #legend(style='visibility: hidden;')
-          div.col-md-6#stemtest
-            div.row#statements
-            div.row#legend
-               div.panel.panel-default
-                  div.panel-body#statement-info
+          div.col-md-6#percentagebars-legend
+              div.row#legend
+                  div.panel.panel-default
+                      div.panel-body#statement-info
+              div.row#percentagebars
+
         div.row
-          div.col
-            div.list-group.list-group-horizontal#statementselector
+          div.col#stemtest(align='center')
+              div.row
+                div.col-md-2#picker
+                  p(align='left') Pick a query by hovering over the bars.
+                  p(align='left') % of people agreeing with a specific query.
+                div.col-md-8#statements
 
 
    script.
@@ -34,4 +39,4 @@ block content
    script(type='text/javascript', src='javascripts/vis.js')
    script(type='text/javascript', src='javascripts/vis2.js')
    script(type='text/javascript', src='javascripts/sequences.js')
-   script(type='text/javascript', src='javascripts/statementselector.js')
+   <!-- script(type='text/javascript', src='javascripts/statementselector.js') -->
