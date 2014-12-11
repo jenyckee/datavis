@@ -6,20 +6,31 @@ var chartsvg;
 // Mapping of step names to colors.
 var colors = {
 "NVA" :"#FBE700",
-"PS" : "#D21F1F",
-"MR" : "#1C72C2",
+//"PS" : "#D21F1F",
+"PS" : "#9c5454",
+//"MR" : "#1C72C2",
+"MR" : "#4f7192",
 "CD&V" :"#F26C00",
 "OpenVLD" : "#1C76C7",
-"SP.A" : "#D11F1F",
-"CDH" : "#E46600",
+//"SP.A" : "#D11F1F",
+"SP.A" : "#f00000",
+//"CDH" : "#E46600",
+"CDH" : "#af896a",
 "Groen" : "#5DA115",
-"Ecolo" : "#5DA115",
-"VB" :"#DFB300",
-"PVDA" : "#760000",
-"FDF" : "#AC0157",
+//"Ecolo" : "#5DA115",
+"Ecolo" : "#5d7740",
+//"VB" :"#DFB300",
+"VB" :"#b38600",
+//"PVDA" : "#760000",
+"PVDA" : "#6d3b3b",
+//"FDF" : "#AC0157",
+"FDF" : "#713d57",
+//"PP" : "#797979",
 "PP" : "#797979",
-"LDD" : "#73A6BE",
-"Anderen" : "#E7E7E7"
+//"LDD" : "#73A6BE",
+"LDD" : "#7aa4b8",
+//"Anderen" : "#E7E7E7"
+"Anderen" : "#b3b3b3"
 };
 
 function adaptPartiesToBurst(parties){
